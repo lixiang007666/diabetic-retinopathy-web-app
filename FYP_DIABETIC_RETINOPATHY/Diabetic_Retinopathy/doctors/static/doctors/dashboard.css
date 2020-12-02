@@ -1,0 +1,68 @@
+
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.navbar{
+  /* background-color: black; */
+  color: black;
+}
+
+.div-text{
+  color: black;
+  letter-spacing: 10px;
+  margin-left: 50px;
+}
+
+
+.about-image{
+  height: 570px;
+  width: 777px;
+  cursor: pointer;
+}
+
+.about-text{
+  font-weight: bold;
+}
+
+.about-one{
+  background-color: transparent;
+}
+
+.about-two{
+  background-color: transparent;
+  padding-top: 200px;
+}
+
+.btn-edit{
+  margin-right: 32px;
+  margin-top: 10px;
+  width: 250px;
+  background-color: black;
+  border: 3px solid black;
+  border-radius: 100px;
+  color: white;
+  font-family: Helvetica;
+  letter-spacing: 5px;
+  float: right;
+}
+
+.btn-edit:hover{
+  font-family: Helvetica;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+}
+
+.footer_class{
+  background-color: white;
+  color: black;
+  letter-spacing: 2px;
+  /* font-family: Helvetica; */
+}

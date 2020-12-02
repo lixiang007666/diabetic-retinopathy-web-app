@@ -1,0 +1,126 @@
+
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+label{
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+input[type='file']{
+  height: 45px;
+}
+
+.div-text{
+  color: black;
+  letter-spacing: 1px;
+}
+
+.logo-text{
+  letter-spacing: 10px;
+}
+
+.navbar{
+  background-color: black;
+}
+
+.footer_class{
+  background-color: white;
+  color: black;
+  letter-spacing: 2px;
+  /* font-family: Helvetica; */
+}
+
+
+
+.first-column{
+  background-color: white;
+}
+
+.second-column{
+  background-color: white;
+}
+
+.profile-image{
+    height: 200px;
+    width: 200px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 5px solid white;
+    cursor: pointer;
+}
+
+.social-media-icons{
+  background-color: white;
+  margin-top: 20px;
+}
+
+.social-icons{
+  height: 50px;
+  width: 50px;
+  padding:5px;
+  margin-left: 2px;
+  float: left;
+}
+
+.text-register{
+  font-weight: lighter;
+}
+
+.update-btn-box{
+  float: left;
+  margin-top: 35px;
+  margin-bottom: 20px;
+}
+
+.btn-edit{
+  width:220px;
+  margin-left: 4px;
+  background-color: black;
+  border: 3px solid black;
+  border-radius: 100px;
+  color: white;
+  font-family: Helvetica;
+  letter-spacing: 6px;
+}
+
+.btn-edit:hover{
+  font-family: Helvetica;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+}
+
+
+.general-info-1{
+  background-color: white;
+  height:125px;
+  border-right: 2px solid #ccc;
+  /* border-bottom: 4px solid black; */
+
+}
+
+.general-icon{
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-right: 20px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.custom-form:active{
+  border-color: orange;
+  outline-color: orange;
+}
+
+.table-edit{
+  font-family: sans-serif;
+}

@@ -1,0 +1,120 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'doctors/lesions_segmentation.css' %}" type="text/css" rel="stylesheet">
+
+    <title>Lesions Segmentation</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand div-text" href="{% url 'doctor-home' %}">ADRA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'after-login-dashboard' %}">Diagnose</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'doctor-profile' %}">Profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- main website container start -->
+    <div class="container-fluid">
+      <h1 class="text-center main-title"><big>Retinal Lesions Segmentation</big></h1>
+
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2 pl-0">
+          <a href="{% url 'lesions-prediction' %}" class="btn btn-block btn-sm btn-edit1 shadow">MICROANEURYSMS</a>
+        </div>
+        <div class="col-sm-2 pl-0">
+          <a href="{% url 'lesion-he' %}" class="btn btn-block btn-sm btn-edit1 shadow">HAEMORRHAGE</a>
+        </div>
+        <div class="col-sm-2 pl-0">
+          <a href="{% url 'lesion-hx' %}" class="btn btn-block btn-sm btn-edit1 shadow">HARD EXUDATES</a>
+        </div>
+        <div class="col-sm-2 pl-0">
+          <a href="{% url 'lesion-se' %}" class="btn btn-block btn-sm btn-edit1 shadow">SOFT EXUDATES</a>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <br>
+      {% block content %}
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="row">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-3 segment-div">
+            <h5 class="lesions-title"><big>Microaneurysms (MA)</big></h5>
+
+            <div class="col-sm-12 image-div shadow">
+              <img src="{% static '../media/microaneurysms/predict_ma.jpg' %}" class="div-images" alt="lesion_images" height="256" width="256">
+            </div>
+          <!-- Custom file upload -->
+            <div style="margin-top: 10px;" class="custom-file mb-3">
+              <!-- later make it accept only jpeg  -->
+              <input type="file" accept="image/*" class="custom-file-input" id="customFile1" name="browse_ma">
+              <label class="custom-file-label" for="customFile1">Upload Lesion Patch</label>
+            </div>
+            <button name="upload_ma" type="submit" value="Submit" class="btn btn-block btn-sm btn-edit shadow">Upload MA Patch</button>
+
+          </div>
+
+          <div class="col-sm-3 segment-div">
+            <h5 class="lesions-title"><big>MA: Predicted Label</big></h5>
+            <div class="col-sm-12 image-div shadow">
+              <img src="{% static '../media/microaneurysms/predicted_ma.jpg' %}" class="div-images" alt="lesion_images" height="256" width="256">
+            </div>
+
+            <button name="predict_ma" type="submit" value="Submit" class="btn btn-block btn-sm btn-edit shadow">PREDICT MA</button>
+          </div>
+
+        <div class="col-sm-3"></div>
+
+    </div>
+    </form>
+    {% endblock content %}
+</div>
+
+    <!-- Footer -->
+    <footer class="py-5 footer_class">
+      <div class="container">
+        <p class="m-0 text-center text-black">Copyright &copy; Prajwal Diabetic Retinopathy 2020</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+
+    <!-- Code to show filename in file browse button   -->
+    <script>
+      $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+      });
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

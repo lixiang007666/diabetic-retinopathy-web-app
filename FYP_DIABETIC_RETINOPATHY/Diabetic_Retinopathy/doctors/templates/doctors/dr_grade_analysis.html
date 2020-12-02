@@ -1,0 +1,269 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'doctors/dr_grade_analysis.css' %}" rel="stylesheet">
+
+    <!-- Charts.js cdn     -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+
+    <title>Diabetic Retinopathy</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand div-text" href="#">ADRA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'after-login-dashboard' %}">Diagnose
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'doctor-profile' %}">Profile</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container-fluid">
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-6 circle_box">
+
+          <div class="actual-circle">
+
+              <img src="{% static '../media/dr_dme_grading/grade_dr.jpg' %}" class="actual_image" alt="dr_image">
+
+          </div>
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-6 result-box">
+            <h2><small class="text-light">Choose image to analyze, </small></h2>
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col-sm-6 browse-upload">
+                    <!-- Custom file upload -->
+                    <div class="custom-file mb-3">
+                      <input type="file" accept="image/*" class="custom-file-input" id="customFile" name="browse_img">
+                      <label class="custom-file-label" for="customFile">Upload Retinal Image</label>
+                    </div>
+                </div>
+                <div class="col-sm-5 predict-btn">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button name="upload_img" type="submit" value="Submit" class="btn btn-block btn-sm btn-edit shadow">
+                                Upload
+                            </button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button name="predict_img" type="submit" value="Submit" class="btn btn-block btn-sm btn-edit shadow">
+                                Analyze
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+
+            <!-- Displaying results div -->
+            <div class="row">
+                <div class="col-sm-8">
+                    <!--  <h2>{{ predictions }}</h2>-->
+                    <canvas id="myChart" width="200" height="100"></canvas>
+                    <script>
+                    var ctx = document.getElementById('myChart');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['No DR', 'Mild', 'Moderate', 'Severe', 'Proliferative'],
+                            datasets: [{
+                                label: 'Grading of Diabetic Retinopathy',
+                                barPercentage: 0.8,
+
+                                barThickness: 50,
+                                data: [{% for datas in predictions %} {{ datas }}, {% endfor %}],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    </script>
+
+                </div>
+
+
+
+                <div class="col-sm-4">
+                    <h3 style="color:white;"><small>DR Severity Grade</small></h3>
+                    <span class="grade">Grade: <br> {{ grade }}</span> <br><br>
+                    <span class="severity">Severity Level:</span> <br>
+                              {% if grade == 0 %}
+                               <span class="severity">No DR</span>
+                              {% elif grade == 1 %}
+                                <span class="severity">Mild NPDR</span>
+                              {% elif grade == 2 %}
+                                <span class="severity">Moderate NPDR</span>
+                              {% elif grade == 3 %}
+                                <span class="severity">Severe NPDR</span>
+                              {% elif grade == 4 %}
+                                <span class="severity">Proliferative DR</span>
+                              {% endif %}
+
+
+
+                </div>
+            </div>
+
+            <!-- FOR DME -->
+
+<!--            <div class="row">-->
+<!--                <div class="col-sm-8">-->
+<!--                    &lt;!&ndash;  <h2>{{ predictions }}</h2>&ndash;&gt;-->
+<!--                    <canvas id="myChart2" width="200" height="100"></canvas>-->
+<!--                    <script>-->
+<!--                    var ctx = document.getElementById('myChart2');-->
+<!--                    var myChart = new Chart(ctx, {-->
+<!--                        type: 'bar',-->
+<!--                        data: {-->
+<!--                            labels: ['No DME', 'Mild DME', 'High DME'],-->
+<!--                            datasets: [{-->
+<!--                                label: 'Grading of Diabetic Macular Edema',-->
+<!--                                barPercentage: 0.8,-->
+
+<!--                                barThickness: 50,-->
+<!--                                data: [{% for datas1 in predictions1 %} {{ datas1 }}, {% endfor %}],-->
+<!--                                backgroundColor: [-->
+<!--                                    'rgba(255, 99, 132, 0.2)',-->
+<!--                                    'rgba(54, 162, 235, 0.2)',-->
+<!--                                    'rgba(255, 206, 86, 0.2)',-->
+<!--                                    'rgba(75, 192, 192, 0.2)',-->
+<!--                                    'rgba(153, 102, 255, 0.2)',-->
+<!--                                    'rgba(255, 159, 64, 0.2)'-->
+<!--                                ],-->
+<!--                                borderColor: [-->
+<!--                                    'rgba(255, 99, 132, 1)',-->
+<!--                                    'rgba(54, 162, 235, 1)',-->
+<!--                                    'rgba(255, 206, 86, 1)',-->
+<!--                                    'rgba(75, 192, 192, 1)',-->
+<!--                                    'rgba(153, 102, 255, 1)',-->
+<!--                                    'rgba(255, 159, 64, 1)'-->
+<!--                                ],-->
+<!--                                borderWidth: 1-->
+<!--                            }]-->
+<!--                        },-->
+<!--                        options: {-->
+<!--                            scales: {-->
+<!--                                yAxes: [{-->
+<!--                                    ticks: {-->
+<!--                                        beginAtZero: true-->
+<!--                                    }-->
+<!--                                }]-->
+<!--                            }-->
+<!--                        }-->
+<!--                    });-->
+<!--                    </script>-->
+
+<!--                </div>-->
+
+
+
+<!--                <div class="col-sm-4">-->
+<!--                    <h3 style="color:white;"><small>DME Severity Grade</small></h3>-->
+<!--                    <span class="grade">Grade: <br> {{ grade1 }}</span> <br><br>-->
+<!--                    <span class="severity">Severity Level:</span> <br>-->
+
+<!--                              {% if grade1 == 0 %}-->
+<!--                               <span class="severity">No DME</span>-->
+<!--                              {% elif grade1 == 1 %}-->
+<!--                                <span class="severity">Mild DME</span>-->
+<!--                              {% elif grade1 == 2 %}-->
+<!--                                <span class="severity">High DME</span>-->
+<!--                              {% endif %}-->
+
+
+
+<!--                </div>-->
+<!--            </div>-->
+
+            <!-- FOR DME END -->
+
+
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+
+
+
+
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+          var fileName = $(this).val().split("\\").pop();
+          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    <!-- Optional JavaScript -->
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

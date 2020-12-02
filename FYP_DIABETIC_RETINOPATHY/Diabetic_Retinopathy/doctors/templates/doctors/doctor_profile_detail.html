@@ -1,0 +1,174 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'doctors/doctor_profile.css' %}" rel="stylesheet">
+
+    <title>Profile</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow fixed-top">
+      <div class="container">
+        <a class="navbar-brand div-text" href="{% url 'doctor-home' %}"><span class="logo-text">ADRA</span>: Automatic Diabetic Retinopathy Assesment</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'after-login-dashboard' %}">Diagnose</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'patients-create' %}">Add Patients</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'find-doctor' %}">Doctors</a>
+            </li>
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                @Dr. {{ user.first_name }}
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'doctor-profile' %}">Profile</a>
+                <a class="dropdown-item" href="#">Change Password</a>
+                <a class="dropdown-item" href="{% url 'doctor-logout' %}">Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- main website container start -->
+    <div class="container">
+
+        <div class="row">
+
+          <div class="col-sm-3 first-column">
+            <div class="title-image">
+              <h1 class="display-3">My Profile</h1>
+                {% if object.profile.image.url %}
+                    <img src="{{ object.profile.image.url }}" alt="profile-image" class="profile-image shadow-lg rounded-circle">
+                {% else %}
+                    <img src="../../media/default.jpg" alt="profile-image" class="profile-image shadow-lg rounded-circle">
+                {% endif %}
+
+            </div>
+
+            <div class="social-media-icons">
+
+              <a href="https://www.facebook.com" target="_blank"><img title="facebook" src="../../media/interface_images/facebook.png" alt="facebook" class="shadow social-icons"></a>
+              <a href="https://www.instagram.com" target="_blank"><img title="instagram" src="../../media/interface_images/insta.png" alt="instagram" class="shadow social-icons"></a>
+              <a href="https://www.linkedin.com" target="_blank"><img title="linkedin" src="../../media/interface_images/linkedin.png" alt="linkedin" class="shadow social-icons"></a>
+              <a href="https://www.twitter.com" target="_blank"><img title="twitter" src="../../media/interface_images/twitter.png" alt="twitter" class="shadow social-icons"></a>
+              <br>
+            </div>
+
+          </div>
+          <div class="col-sm-9 second-column">
+
+            <!-- TAB CONTENTS HTML -->
+            <br>
+            <h1 class="display-4">Dr. {{ object.first_name }} {{ object.last_name }}</h1>
+            <br>
+
+            <div class="tab">
+              <button class="tablinks" onclick="openDetails(event, 'General')" id="defaultOpen">General Info</button>
+            </div>
+
+            <div id="General" class="tabcontent">
+              <div class="row">
+                <div class="col-sm-6 general-info-1">
+                  <img title="doctor" src="../../media/interface_images/stethoscope.png" alt="stethoscope" class="shadow general-icon"><h1>Doctor Type:</h1>
+                  <h2><small>{{ object.profile.doctor_type }}</small></h2>
+                </div>
+                <div class="col-sm-6 general-info-1">
+                  <h1>Medical Council No.:</h1>
+                  <h2><small>{{ object.profile.mc_number }}</small></h2>
+                </div>
+                <div class="col-sm-12 general-info-1">
+                  <img title="address" src="../../media/interface_images/location.png" alt="location" class="shadow general-icon"><h1>Address:</h1>
+                  <h2><small>{{ object.profile.doctor_address }}</small></h2>
+                </div>
+                <div class="col-sm-6 general-info-1">
+                  <img title="email" src="../../media/interface_images/email.png" alt="email" class="shadow general-icon"><h1>E-Mail:</h1>
+                  <h2><small>{{ object.email }}</small></h2>
+                </div>
+                <div class="col-sm-6 general-info-1">
+                  <img title="phone" src="../../media/interface_images/call.png" alt="call" class="shadow general-icon"><h1>Contact:</h1>
+                  <h2><small>{{ object.profile.doctor_contact }}</small></h2>
+                </div>
+
+              </div>
+            </div>
+
+                <script>
+                $(document).ready(function(){
+                  $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                  });
+                });
+                </script>
+              </div>
+
+            <!-- TAB ONLY JAVASCRIPT -->
+            <script>
+              function openDetails(evt, doctorDetails) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                  tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                  tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(doctorDetails).style.display = "block";
+                evt.currentTarget.className += " active";
+              }
+
+              // Get the element with id="defaultOpen" and click on it
+              document.getElementById("defaultOpen").click();
+
+
+            </script>
+            <!-- END JAVASCRIPT -->
+
+          </div>
+
+        </div>
+
+
+    </div>
+  </div>
+
+    <!-- Footer -->
+    <footer class="py-5 footer_class">
+      <div class="container">
+        <p class="m-0 text-center text-black">Copyright &copy; Prajwal Diabetic Retinopathy 2020</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

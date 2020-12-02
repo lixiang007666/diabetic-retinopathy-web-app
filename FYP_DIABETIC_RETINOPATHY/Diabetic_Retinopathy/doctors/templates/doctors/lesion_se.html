@@ -1,0 +1,37 @@
+{% extends 'doctors/lesions_segmentation.html' %}
+
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-3"></div>
+
+        <div class="col-sm-3 segment-div">
+          <h5 class="lesions-title"><big>Soft Exudates (SE)</big></h5>
+          <div class="col-sm-12 image-div shadow">
+            <img src="../media/soft_exudates/predict_se.jpg" class="div-images" alt="lesion_images" height="256" width="256">
+          </div>
+<!--          <a class="btn btn-block btn-sm btn-edit shadow" href="#">UPLOAD IMAGE</a>-->
+          <!-- Custom file upload -->
+          <div style="margin-top: 10px;" class="custom-file mb-3">
+            <!-- later make it accept only jpeg  -->
+            <input type="file" accept="image/*" class="custom-file-input" id="customFile4" name="browse_se">
+            <label class="custom-file-label" for="customFile4">Upload Lesion Patch</label>
+          </div>
+          <button name="upload_se" type="submit" value="Submit" class="btn btn-block btn-sm btn-edit shadow">Upload SE Patch</button>
+        </div>
+
+        <div class="col-sm-3 segment-div">
+          <h5 class="lesions-title"><big>SE: Predicted Label</big></h5>
+          <div class="col-sm-12 image-div shadow">
+            <img src="../media/soft_exudates/predicted_se.jpg" class="div-images" alt="lesion_images" height="256" width="256">
+          </div>
+<!--          <a class="btn btn-block btn-sm btn-edit shadow" href="#">PREDICT</a>-->
+          <button name="predict_se" type="submit" value="Submit" class="btn btn-block btn-sm btn-edit shadow">PREDICT SE</button>
+        </div>
+
+        <div class="col-sm-3"></div>
+    </div>
+    </form>
+
+{% endblock content %}

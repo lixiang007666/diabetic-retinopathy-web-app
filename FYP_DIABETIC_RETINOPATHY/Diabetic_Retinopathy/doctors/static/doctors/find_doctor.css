@@ -1,0 +1,36 @@
+.navbar{
+  background-color: black;
+}
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.search-icons{
+  height:50px;
+  width:50px;
+  cursor: pointer;
+  float: left;
+  margin-right: 5px;
+}
+
+.div-text{
+  color: black;
+  letter-spacing: 1px;
+}
+
+.logo-text{
+  letter-spacing: 10px;
+}
+
+.footer_class{
+  background-color: white;
+  color: black;
+  letter-spacing: 2px;
+  /* font-family: Helvetica; */
+}

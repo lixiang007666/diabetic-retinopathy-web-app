@@ -1,0 +1,104 @@
+/* Copyright: Prajwal */
+body {
+  padding-top: 54px;
+  background-color: black;
+}
+
+.navbar{
+  background-color: black;
+}
+
+.file-upload input[type='file'] {
+  display: none;
+  }
+
+.browse-upload{
+  /*float: left;*/
+  /*padding: 0px;*/
+}
+
+.predict-btn{
+  float: left;
+  padding: 0px
+}
+
+
+
+.div-text{
+  color: black;
+  letter-spacing: 10px;
+  margin-left: 50px;
+}
+
+.footer-class{
+  background-color: black;
+}
+
+/* DR Circle image div */
+.circle_box{
+  background-color: black;
+  padding-top: 10px;
+
+}
+
+/* DR result div */
+.result-box{
+  background-color: black;
+  padding-left: 0;
+}
+
+/* Actual Circle making */
+.actual-circle{
+  background-color: black;
+  height: 555px;
+  border-radius: 50%;
+  border: 4px solid #003bff;
+  width: 555px;
+  margin: auto;
+  padding: 0px;
+}
+
+.actual_image{
+  height: 300px;
+  width: 420px;
+  margin-top: 125px;
+  margin-left: 63px;
+
+}
+
+.grade{
+  color: white;
+}
+
+.severity{
+  color: white;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.btn-edit{
+  /* margin-left: 32px; */
+  /* margin-top: 20px; */
+  width: 150px;
+  background-color: white;
+  border: 3px solid #003bff;
+  border-radius: 100px;
+  color: black;
+  font-family: Helvetica;
+  letter-spacing: 5px;
+  /* font-weight: lighter; */
+  margin: auto;
+
+
+}
+
+.btn-edit:hover{
+  font-family: Helvetica;
+  color: white;
+  background-color: black;
+  font-weight: lighter;
+}

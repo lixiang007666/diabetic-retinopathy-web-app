@@ -1,0 +1,107 @@
+.navbar{
+  background-color: black;
+}
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+
+.div-text{
+  color: black;
+  letter-spacing: 10px;
+  margin-left: 50px;
+}
+
+.segment-div{
+  background-color: transparent;
+  height: 370px;
+}
+
+.main-title{
+  letter-spacing: 5px;
+  font-weight: lighter;
+
+}
+
+.btn-edit{
+  /* margin-left: 32px; */
+  /* margin-top: 20px; */
+  width: 260px;
+  background-color: black;
+  border: 3px solid black;
+  border-radius: 100px;
+  color: white;
+  font-family: Helvetica;
+  letter-spacing: 5px;
+  /* font-weight: lighter; */
+  margin: auto;
+
+}
+
+.btn-edit:hover{
+  font-family: Helvetica;
+  color: black;
+  background-color: white;
+  font-weight: lighter;
+}
+
+.lesions-title{
+  letter-spacing: 1px;
+  font-weight: lighter;
+  text-align: center;
+}
+
+.image-div{
+  height: 270px;
+  background-color: transparent;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+}
+
+.div-images{
+  margin-left: 9px;
+  margin-top: 8px;
+}
+
+
+.footer_class{
+  background-color: white;
+  color: black;
+  letter-spacing: 2px;
+  /* font-family: Helvetica; */
+}
+
+
+.btn-edit1{
+   /*margin-left: 32px;*/
+  /* margin-top: 20px; */
+  width: 220px;
+  background-color: black;
+  border: 3px solid black;
+  border-radius: 100px;
+  color: white;
+  font-family: Helvetica;
+  letter-spacing: 2px;
+  /* font-weight: lighter; */
+  /*margin: auto;*/
+}
+
+.btn-edit1:hover{
+  font-family: Helvetica;
+  color: black;
+  background-color: white;
+  font-weight: lighter;
+}
+
+.train-image{
+  height: 300px;
+  width: 100%;
+}
+

@@ -1,0 +1,79 @@
+.navbar{
+  background-color: black;
+}
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+label{
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.btn-edit{
+  margin-right: 32px;
+  margin-top: 10px;
+  width: 200px;
+  background-color: black;
+  border: 3px solid black;
+  border-radius: 100px;
+  color: white;
+  font-family: Helvetica;
+  letter-spacing: 5px;
+  float: left;
+}
+
+.btn-edit:hover{
+  font-family: Helvetica;
+  color: black;
+  background-color: white;
+  font-weight: bold;
+}
+
+.text-register{
+    font-weight: lighter;
+    letter-spacing: 2px;
+}
+
+.last-text{
+  font-size: 16px;
+}
+
+.search-icons{
+  height:50px;
+  width:50px;
+  cursor: pointer;
+  float: left;
+  margin-right: 5px;
+}
+
+.div-text{
+  color: black;
+  letter-spacing: 1px;
+}
+
+.logo-text{
+  letter-spacing: 10px;
+}
+
+.footer_class{
+  background-color: white;
+  color: black;
+  letter-spacing: 2px;
+  /* font-family: Helvetica; */
+}
+
+.first-column{
+  background-color: transparent;
+}
+
+.second-column{
+  background-color: transparent;
+}
+

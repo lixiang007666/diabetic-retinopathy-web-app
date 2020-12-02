@@ -1,0 +1,42 @@
+{% extends 'doctors/blood_vessels_segmentation.html' %}
+{% load static %}
+
+{% block content %}
+<!--    <h2 class="text-center main-title"><big>Optic Disc Segmentation</big></h2>-->
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-3 segment-div">
+        </div>
+        <div class="col-sm-3 segment-div">
+          <h5 class="lesions-title"><big>Optic Disc (OD)</big></h5>
+          <div class="col-sm-12 image-div shadow">
+            <img src="{% static '../media/optic_disc/predict_od.jpg' %}" class="div-images" alt="lesion_images" height="256" width="256">
+          </div>
+<!--          <a class="btn btn-block btn-sm btn-edit shadow" href="#">UPLOAD IMAGE</a>-->
+        <!-- Custom file upload -->
+            <div style="margin-top: 10px;" class="custom-file mb-3">
+              <!-- later make it accept only jpeg  -->
+              <input type="file" accept="image/*" class="custom-file-input" id="customFile" name="browse_od">
+              <label class="custom-file-label" for="customFile">Upload Lesion Patch</label>
+            </div>
+            <button name="upload_od" type="submit" value="Submit" class="btn btn-block btn-sm btn-edit shadow">Upload OD Patch</button>
+        </div>
+
+        <div class="col-sm-3 segment-div">
+          <h5 class="lesions-title"><big>OD: Predicted Label</big></h5>
+          <div class="col-sm-12 image-div shadow">
+            <img src="{% static '../media/optic_disc/predicted_od.jpg' %}" class="div-images" alt="lesion_images" height="256" width="256">
+          </div>
+
+            <button name="predict_od" type="submit" value="Submit" class="btn btn-block btn-sm btn-edit shadow">PREDICT OD</button>
+        </div>
+
+        <div class="col-sm-3 segment-div">
+        </div>
+
+    </div>
+        <br><br>
+    </form>
+
+{% endblock content %}

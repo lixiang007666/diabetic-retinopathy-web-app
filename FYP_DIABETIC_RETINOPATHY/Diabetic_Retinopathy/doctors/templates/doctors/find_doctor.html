@@ -1,0 +1,152 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'doctors/find_doctor.css' %}" rel="stylesheet">
+
+    <title>Search Doctors</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow fixed-top">
+      <div class="container">
+        <a class="navbar-brand div-text" href="{% url 'doctor-home' %}"><span class="logo-text">ADRA</span>: Automatic Diabetic Retinopathy Assesment</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'after-login-dashboard' %}">Diagnose</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'patients-create' %}">Add Patients</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'find-doctor' %}">Doctors</a>
+            </li>
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                @Dr. {{ user.first_name }}
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'doctor-profile' %}">Profile</a>
+                <a class="dropdown-item" href="#">Change Password</a>
+                <a class="dropdown-item" href="{% url 'doctor-logout' %}">Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- main website container start -->
+    <div class="container">
+
+        <div class="row">
+
+          <div class="col-sm-12 first-column">
+
+              <br>
+              <h1 class="display-4">Search For Doctors...</h1><br>
+                  <input class="form-control" id="myInput" type="text" placeholder="Search the doctors...">
+                  <br>
+                  <table class="table table-bordered table-edit">
+                    <thead>
+                      <tr>
+                        <th>Doctor Username</th>
+                        <th>Doctor Name</th>
+                        <th>Medical Council No.</th>
+                        <th>Doctor Type</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="myTable">
+                      {% for doctor in doctors %}
+                      <tr>
+                        <td>@{{ doctor.username }}</td>
+                        <td>Dr. {{ doctor.first_name }} {{ doctor.last_name }}</td>
+                        <td>{{ doctor.profile.mc_number }}</td>
+                        <td>{{ doctor.profile.doctor_type }}</td>
+                        <td>{{ doctor.profile.doctor_contact }}</td>
+                        <td>
+                          <a href="{% url 'profile-detail' doctor.id %}" class="btn btn-outline-primary btn-sm">View Profile</a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  {% if is_paginated %}
+
+                      {% if page_obj.has_previous %}
+
+                          <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+
+                      {% endif %}
+
+                      {% for num in page_obj.paginator.page_range %}
+
+                          {% if page_obj.number == num %}
+                              <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'  %}
+                              <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                          {% endif %}
+
+                      {% endfor %}
+
+                      {% if page_obj.has_next %}
+
+                          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+
+                      {% endif %}
+
+                  {% endif %}
+
+                <script>
+                $(document).ready(function(){
+                  $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function() {
+                      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                  });
+                });
+                </script>
+
+
+
+
+          </div>
+    </div>
+  </div>
+
+    <!-- Footer -->
+    <footer class="py-5 footer_class">
+      <div class="container">
+        <p class="m-0 text-center text-black">Copyright &copy; Prajwal Diabetic Retinopathy 2020</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

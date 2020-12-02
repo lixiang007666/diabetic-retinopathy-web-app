@@ -1,0 +1,89 @@
+.navbar{
+  background-color: black;
+}
+body {
+  padding-top: 54px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+.search-icons{
+  height:50px;
+  width:50px;
+  cursor: pointer;
+  float: left;
+  margin-right: 5px;
+}
+
+.div-text{
+  color: black;
+  letter-spacing: 1px;
+}
+
+.logo-text{
+  letter-spacing: 10px;
+}
+
+.footer_class{
+  background-color: white;
+  color: black;
+  letter-spacing: 2px;
+  /* font-family: Helvetica; */
+}
+
+.first-column{
+  background-color: transparent;
+}
+
+.second-column{
+  background-color: transparent;
+}
+
+
+.btn-edit{
+  width:300px;
+  height: 150px;
+  margin-left: 4px;
+  margin-top: 30px;
+  background-color: white;
+  border: 3px solid black;
+  border-radius: 100px;
+  color: black;
+  font-family: Helvetica;
+  letter-spacing: 6px;
+}
+
+.btn-edit:hover{
+  font-family: Helvetica;
+  color: white;
+  background-color: black;
+  /* font-weight: bold; */
+}
+
+.btn-edit1{
+  width:300px;
+  height: 150px;
+  margin-left: 4px;
+  margin-top: 30px;
+  background-color: black;
+  border: 3px solid black;
+  border-radius: 100px;
+  color: white;
+  font-family: Helvetica;
+  letter-spacing: 6px;
+}
+
+.btn-edit1:hover{
+  font-family: Helvetica;
+  color: black;
+  background-color: white;
+  /* font-weight: bold; */
+}
+
+.quotes-2{
+  margin: auto;
+}
