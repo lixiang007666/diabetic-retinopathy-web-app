@@ -1,6 +1,6 @@
 # diabetic-retinopathy
 
-Web Application for Segmentation of retinal lesions associated with Diabetic Retinopathy and Diabetic Macular edema, Optic Disc and Retinal Blood vessels present in retinal fundus images. 
+Web Application for Segmentation of retinal lesions associated with Diabetic Retinopathy and Diabetic Macular edema, Optic Disc and Retinal Blood vessels present in retinal fundus images. Also, grading severity level of DR and DME.
 
 ## Diabetic Retinopathy: Segmentation and Classification
 Diabetic Retinopathy (DR) is a complication of diabetes that can affect the eyes, affecting the blood vessels present in the retina (Light Sensitive Tissue) which lines the back of the eye. This is the most common cause of blindness and vision impairment among working-age adults and vision loss among people with diabetes. In this project, I carried out the following things:
